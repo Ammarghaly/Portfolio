@@ -14,13 +14,18 @@
         <div class="logo-wrapper">
             <h3 class="title-section amar"><a href="#">Amar Ghaly</a></h3>
         </div>
-        <ul class="nav-links">
+        <ul class="nav-links" id="navLinks">
             <li><a href="#why-choose-me">Why Me?</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#contact-form">Contact Me</a></li>
         </ul>
         <a href="#"><img src="images/logo.png" alt="logo" class="nav-logo"></a>
+        <div class="hamburger" id="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
     </nav>
     <header class=" hero">
         <div class="profile-wrapper">
@@ -123,6 +128,21 @@
     <footer>
         <p>&copy; 2026 Amar Ghaly. All rights reserved.</p>
     </footer>
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+        document.querySelectorAll('.nav-links li a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+    </script>
 </body>
 
 </html>
