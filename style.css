@@ -448,6 +448,7 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 .section-contact-form form {
   background-color: #161625;
@@ -457,6 +458,8 @@ section {
   max-width: 600px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.05);
+  display: grid;
+  grid-template-columns: 1fr auto;
 }
 .section-contact-form .title-section {
   text-align: center;
@@ -519,60 +522,41 @@ section {
   box-shadow: var(--primary-shadow);
   transform: translateY(-2px);
 }
-.section-contact-info {
-  padding: 60px 20px;
-  background-color: #0b0b14;
+.info {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-top: 15px;
+  margin-left: 40px;
+  width: 100px;
+  backdrop-filter: blur(8px);
+  background-color: rgb(11, 11, 20, 0.2);
+  border-radius: 15px;
 }
-.section-contact-info table {
-  width: 100%;
-  max-width: 700px;
-  border-collapse: collapse;
-  background-color: #161625;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+.info a {
+  border-bottom: 1px solid var(--primary-color);
+  margin: 50px 0;
+  width: 70px;
+  height: 70px;
+  text-align: center;
 }
-.section-contact-info th {
-  background-color: #1f1f33;
-  color: var(--primary-color);
-  padding: 20px;
-  text-align: left;
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-bottom: 2px solid #2b2b3d;
+.info a img {
+  width: 50px;
+  height: 50px;
+  margin-left: 5px;
+  animation: ack-forth 3s infinite ease-in-out;
 }
-.section-contact-info td {
-  padding: 15px 20px;
-  color: #ccc;
-  border-bottom: 1px solid #2b2b3d;
-  transition: 0.3s;
-}
-.section-contact-info td:first-child {
-  font-weight: bold;
-  color: #fff;
-  width: 30%;
-}
-.section-contact-info tr:last-child td {
-  border-bottom: none;
-}
-.section-contact-info tbody tr:hover td {
-  background-color: rgba(0, 229, 255, 0.05);
-}
-.section-contact-info a {
-  color: var(--primary-color);
-  text-decoration: none;
-  font-weight: 500;
-  transition: 0.3s;
-}
-
-.section-contact-info a:hover {
-  text-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
-  text-decoration: underline;
+@keyframes ack-forth {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 footer {
   text-align: center;
