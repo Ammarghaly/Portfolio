@@ -255,6 +255,7 @@ a {
   color: #fff;
 }
 #amar {
+  animation: infinite glow 2s ease-in-out;
   animation: name linear forwards;
   animation-timeline: scroll();
   animation-range: 0vh 20vh;
@@ -741,5 +742,43 @@ footer {
     width: 30px;
     height: 30px;
     margin: 0;
+  }
+}
+@media (max-width: 1024px) {
+  section {
+    padding: 60px 3%;
+  }
+  .logo-wrapper {
+    width: auto;
+    margin-right: 15px;
+  }
+  .nav-links li {
+    margin: 0 8px;
+  }
+  .nav-links a {
+    font-size: 1rem;
+  }
+  .hero {
+    gap: 30px;
+    justify-content: center;
+  }
+
+  .hero .profile-wrapper {
+    width: 200px;
+    height: 200px;
+    flex-shrink: 0;
+  }
+
+  .hero .intro h3 {
+    font-size: 2.2em;
+  }
+  .hero .intro p {
+    font-size: 1rem;
+  }
+  .title-section {
+    font-size: 2em;
+  }
+  .section-projects div {
+    gap: 15px;
   }
 }
