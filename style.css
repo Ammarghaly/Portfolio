@@ -400,6 +400,9 @@ a {
     width: 100%;
   }
 }
+.two-line {
+  padding: 20px 0;
+}
 section {
   padding: 60px 5%;
 }
@@ -683,9 +686,47 @@ footer {
   padding: 20px;
   border-top: 1px solid rgba(0, 229, 255, 0.6);
 }
+@media (max-width: 1024px) {
+  section {
+    padding: 60px 3%;
+  }
+  .logo-wrapper {
+    width: auto;
+    margin-right: 15px;
+  }
+  .nav-links li {
+    margin: 0 8px;
+  }
+  .nav-links a {
+    font-size: 1rem;
+  }
+  .hero {
+    gap: 30px;
+    justify-content: center;
+  }
+
+  .hero .profile-wrapper {
+    width: 200px;
+    height: 200px;
+    flex-shrink: 0;
+  }
+
+  .hero .intro h3 {
+    font-size: 2.2em;
+  }
+  .hero .intro p {
+    font-size: 1rem;
+  }
+  .title-section {
+    font-size: 2em;
+  }
+  .section-projects div {
+    gap: 15px;
+  }
+}
 @media (max-width: 400px) {
   section {
-    padding: 40px 15px;
+    padding: 20px 10px;
   }
   nav .logo-wrapper h3 {
     font-size: 1rem;
@@ -742,43 +783,5 @@ footer {
     width: 30px;
     height: 30px;
     margin: 0;
-  }
-}
-@media (max-width: 1024px) {
-  section {
-    padding: 60px 3%;
-  }
-  .logo-wrapper {
-    width: auto;
-    margin-right: 15px;
-  }
-  .nav-links li {
-    margin: 0 8px;
-  }
-  .nav-links a {
-    font-size: 1rem;
-  }
-  .hero {
-    gap: 30px;
-    justify-content: center;
-  }
-
-  .hero .profile-wrapper {
-    width: 200px;
-    height: 200px;
-    flex-shrink: 0;
-  }
-
-  .hero .intro h3 {
-    font-size: 2.2em;
-  }
-  .hero .intro p {
-    font-size: 1rem;
-  }
-  .title-section {
-    font-size: 2em;
-  }
-  .section-projects div {
-    gap: 15px;
   }
 }
