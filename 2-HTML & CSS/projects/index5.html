@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartWatch Pro X - Premium Smartwatch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #334155;
+            background: #f8fafc;
+            padding-top: 70px;
+            /* Space for fixed navbar */
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            height: 70px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0f172a;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #0ea5e9;
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            color: #334155;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #334155;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 70px);
+            background: white;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 999;
+            padding: 20px;
+        }
+
+        .mobile-menu-overlay.active {
+            transform: translateX(0);
+        }
+
+        .mobile-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .mobile-links a {
+            text-decoration: none;
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        /* Product Hero Section */
+        .product-hero {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            position: sticky;
+            top: 90px;
+        }
+
+        .main-image-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 12px;
+            overflow: hidden;
+            /* Important for zoom effect */
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            cursor: zoom-in;
+            position: relative;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .thumbnail-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            overflow-x: auto;
+            padding: 5px 0;
+            scrollbar-width: thin;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .thumbnail:hover,
+        .thumbnail.active {
+            border-color: #0ea5e9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Product Info */
+        .product-info h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #0f172a;
+            line-height: 1.2;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stars {
+            color: #f59e0b;
+        }
+
+        .price-section {
+            margin: 30px 0;
+            padding: 25px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #94a3b8;
+            font-size: 1.2rem;
+            margin-left: 10px;
+        }
+
+        .discount-badge {
+            background: #ef4444;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        /* Product Options */
+        .product-options {
+            margin: 30px 0;
+        }
+
+        .option-group {
+            margin-bottom: 25px;
+        }
+
+        .option-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #0f172a;
+            font-size: 0.95rem;
+        }
+
+        .color-options,
+        .size-options {
+            display: flex;
+            gap: 15px;
+        }
+
+        .color-option {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .color-option.active {
+            border-color: #0ea5e9;
+            transform: scale(1.1);
+        }
+
+        .color-option.active::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .size-option {
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .size-option:hover {
+            border-color: #94a3b8;
+        }
+
+        .size-option.active {
+            border-color: #0ea5e9;
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        /* Quantity and Add to Cart */
+        .purchase-section {
+            display: flex;
+            gap: 20px;
+            margin: 40px 0;
+            align-items: center;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .quantity-btn {
+            background: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background 0.2s ease;
+            color: #334155;
+        }
+
+        .quantity-btn:hover {
+            background: #f8fafc;
+            color: #0ea5e9;
+        }
+
+        .quantity-input {
+            width: 50px;
+            height: 45px;
+            border: none;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0f172a;
+            appearance: none;
+            -moz-appearance: textfield;
+        }
+
+        .quantity-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        .add-to-cart-btn {
+            flex: 1;
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #0ea5e9;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.25);
+        }
+
+        .add-to-cart-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Features List */
+        .features-list {
+            margin: 30px 0;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .feature-item:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon {
+            color: #10b981;
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Product Details Tabs */
+        .product-details {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #64748b;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .tab:hover {
+            color: #334155;
+        }
+
+        .tab.active {
+            color: #0ea5e9;
+            border-bottom-color: #0ea5e9;
+        }
+
+        .tab-content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            min-height: 300px;
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Specifications Table */
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .specs-table tr {
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .specs-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .specs-table td {
+            padding: 16px 10px;
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: #0f172a;
+            width: 35%;
+        }
+
+        .spec-value {
+            color: #475569;
+        }
+
+        /* Reviews */
+        .review-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 25px 0;
+        }
+
+        .review-item:first-child {
+            padding-top: 0;
+        }
+
+        .review-item:last-child {
+            border-bottom: none;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .reviewer-name {
+            font-weight: 700;
+            color: #0f172a;
+            display: block;
+        }
+
+        .review-date {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Related Products */
+        .related-section {
+            max-width: 1200px;
+            margin: 60px auto 100px;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #0f172a;
+            margin-bottom: 30px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+        }
+
+        .related-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border: 1px solid #f1f5f9;
+        }
+
+        .related-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: #e2e8f0;
+        }
+
+        .related-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #f8fafc;
+        }
+
+        .related-info {
+            padding: 20px;
+        }
+
+        .related-info h4 {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .related-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0ea5e9;
+            margin-top: 10px;
+            display: block;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #10b981;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transform: translateX(200%);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .product-hero {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin-top: 20px;
+            }
+
+            .main-image-container {
+                height: 350px;
+            }
+
+            .product-info h1 {
+                font-size: 2rem;
+            }
+
+            .purchase-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .quantity-selector {
+                justify-content: center;
+                height: 50px;
+            }
+
+            .quantity-btn {
+                width: 60px;
+            }
+
+            .add-to-cart-btn {
+                width: 100%;
+            }
+
+            .tab {
+                padding: 15px 20px;
+                font-size: 0.9rem;
+            }
+
+            .tab-content {
+                padding: 20px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">TechStore</a>
+
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#support">Support</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <div class="cart-icon" onclick="addToCart()">
+                    <i class="fas fa-shopping-cart fa-lg"></i>
+                    <span class="cart-count">0</span>
+                </div>
+                <div class="hamburger" id="hamburgerBtn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <ul class="mobile-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#support">Support</a></li>
+        </ul>
+    </div>
+
+    <!-- Product Hero Section -->
+    <div class="product-hero">
+        <!-- Image Gallery -->
+        <div class="image-gallery">
+            <div class="main-image-container" id="zoomContainer">
+                <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=800&h=800&fit=crop"
+                    alt="SmartWatch Pro X" class="main-image" id="mainImage">
+            </div>
+
+            <div class="thumbnail-container">
+                <!-- Using data-src for cleaner JS logic -->
+                <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=150&h=150&fit=crop"
+                    data-full="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=800&h=800&fit=crop"
+                    alt="Front View" class="thumbnail active">
+
+                <img src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=150&h=150&fit=crop"
+                    data-full="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=800&h=800&fit=crop"
+                    alt="Side View" class="thumbnail">
+
+                <img src="https://images.unsplash.com/photo-1551816230-ef5deaed4a26?w=150&h=150&fit=crop"
+                    data-full="https://images.unsplash.com/photo-1551816230-ef5deaed4a26?w=800&h=800&fit=crop"
+                    alt="On Hand" class="thumbnail">
+
+                <img src="https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=150&h=150&fit=crop"
+                    data-full="https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=800&h=800&fit=crop"
+                    alt="Lifestyle" class="thumbnail">
+            </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info">
+            <h1>SmartWatch Pro X Series 7</h1>
+
+            <div class="rating">
+                <span class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </span>
+                <span style="color: #64748b;">4.8 (2,847 reviews)</span>
+                <span style="color: #cbd5e1;">|</span>
+                <span style="color: #10b981; font-weight: 600;"><i class="fas fa-check-circle"></i> In Stock</span>
+            </div>
+
+            <div class="price-section">
+                <div>
+                    <span class="price">$299.00</span>
+                    <span class="old-price">$399.00</span>
+                    <span class="discount-badge">SAVE 25%</span>
+                </div>
+                <p style="margin-top: 10px; color: #64748b; font-size: 0.9rem;">
+                    <i class="fas fa-shipping-fast" style="color: #0ea5e9;"></i> Free 2-day shipping & free returns
+                </p>
+            </div>
+
+            <!-- Product Options -->
+            <div class="product-options">
+                <div class="option-group">
+                    <label>Band Color: <span id="selectedColor"
+                            style="font-weight: 400; color: #64748b;">Black</span></label>
+                    <div class="color-options">
+                        <div class="color-option active" style="background: #1f2937;" data-color="Black" title="Black">
+                        </div>
+                        <div class="color-option" style="background: #94a3b8;" data-color="Silver" title="Silver"></div>
+                        <div class="color-option" style="background: #fcd34d;" data-color="Gold" title="Gold"></div>
+                        <div class="color-option" style="background: #ef4444;" data-color="Red" title="Red"></div>
+                    </div>
+                </div>
+
+                <div class="option-group">
+                    <label>Case Size: <span id="selectedSize"
+                            style="font-weight: 400; color: #64748b;">44mm</span></label>
+                    <div class="size-options">
+                        <div class="size-option" data-size="40mm">40mm</div>
+                        <div class="size-option active" data-size="44mm">44mm</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="features-list">
+                <div class="feature-item">
+                    <i class="fas fa-heartbeat feature-icon"></i>
+                    <span>Advanced ECG & Blood Oxygen monitoring</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-water feature-icon"></i>
+                    <span>Water resistant up to 50 meters (Swim-proof)</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-battery-full feature-icon"></i>
+                    <span>Up to 18 hours battery life with fast charging</span>
+                </div>
+            </div>
+
+            <!-- Purchase Section -->
+            <div class="purchase-section">
+                <div class="quantity-selector">
+                    <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                    <input type="number" class="quantity-input" id="quantity" value="1" min="1" readonly>
+                    <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                </div>
+
+                <button class="add-to-cart-btn" onclick="addToCart()">
+                    <i class="fas fa-shopping-bag"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- Trust Badges -->
+            <div
+                style="display: flex; gap: 25px; margin-top: 20px; flex-wrap: wrap; border-top: 1px solid #f1f5f9; padding-top: 20px;">
+                <div style="display: flex; align-items: center; gap: 8px; color: #475569; font-size: 0.9rem;">
+                    <i class="fas fa-shield-alt" style="color: #10b981;"></i>
+                    <span>2 Year Warranty</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; color: #475569; font-size: 0.9rem;">
+                    <i class="fas fa-lock" style="color: #0ea5e9;"></i>
+                    <span>Secure Checkout</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Details Tabs -->
+    <div class="product-details">
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('description', event)">Description</div>
+            <div class="tab" onclick="showTab('specifications', event)">Specifications</div>
+            <div class="tab" onclick="showTab('reviews', event)">Reviews</div>
+        </div>
+
+        <div class="tab-content">
+            <!-- Description Tab -->
+            <div class="tab-pane active" id="description">
+                <h3 style="margin-bottom: 20px; color: #0f172a;">The Future of Health is on Your Wrist</h3>
+                <p style="margin-bottom: 15px; color: #475569; line-height: 1.8;">
+                    Measure your blood oxygen level with a revolutionary new sensor and app. Take an ECG anytime,
+                    anywhere. See your fitness metrics at a glance with the enhanced Always-On Retina display. With
+                    SmartWatch Pro X, a healthier, more active, clearer connected life is within reach.
+                </p>
+                <p style="color: #475569; line-height: 1.8;">
+                    The aluminum case is lightweight and made from 100 percent recycled aerospace-grade alloy. The Sport
+                    Band is made from a durable yet soft high-performance fluoroelastomer with an innovative
+                    pin-and-tuck closure.
+                </p>
+            </div>
+
+            <!-- Specifications Tab -->
+            <div class="tab-pane" id="specifications">
+                <table class="specs-table">
+                    <tr>
+                        <td class="spec-label">Display</td>
+                        <td class="spec-value">1.9" LTPO OLED Always-On Retina Display</td>
+                    </tr>
+                    <tr>
+                        <td class="spec-label">Processor</td>
+                        <td class="spec-value">S7 SiP with 64-bit dual-core processor</td>
+                    </tr>
+                    <tr>
+                        <td class="spec-label">Connectivity</td>
+                        <td class="spec-value">Wi-Fi 802.11b/g/n, Bluetooth 5.0</td>
+                    </tr>
+                    <tr>
+                        <td class="spec-label">Sensors</td>
+                        <td class="spec-value">Blood Oxygen, ECG, Optical Heart Sensor, Compass</td>
+                    </tr>
+                    <tr>
+                        <td class="spec-label">Water Resistance</td>
+                        <td class="spec-value">Water resistant 50 meters</td>
+                    </tr>
+                    <tr>
+                        <td class="spec-label">Dimensions</td>
+                        <td class="spec-value">45 x 38 x 10.7 mm</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Reviews Tab -->
+            <div class="tab-pane" id="reviews">
+                <div class="review-item">
+                    <div class="review-header">
+                        <div>
+                            <span class="reviewer-name">Alex Morgan</span>
+                            <div class="stars" style="color: #f59e0b; font-size: 0.8rem; margin-top: 5px;">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <span class="review-date">Oct 15, 2023</span>
+                    </div>
+                    <p style="color: #475569;">Incredible battery life compared to the previous version. The screen is
+                        noticeably brighter outdoors. Very satisfied!</p>
+                </div>
+
+                <div class="review-item">
+                    <div class="review-header">
+                        <div>
+                            <span class="reviewer-name">Jessica Lee</span>
+                            <div class="stars" style="color: #f59e0b; font-size: 0.8rem; margin-top: 5px;">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <span class="review-date">Nov 02, 2023</span>
+                    </div>
+                    <p style="color: #475569;">Great watch, but I wish the charging cable was a bit longer. Otherwise,
+                        tracking is spot on.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Products -->
+    <div class="related-section">
+        <h2 class="section-title">You Might Also Like</h2>
+        <div class="related-grid">
+            <a href="#" class="related-card">
+                <img src="https://images.unsplash.com/photo-1579586337278-3befd6273733?w=300&h=300&fit=crop"
+                    alt="SmartWatch SE" class="related-img">
+                <div class="related-info">
+                    <h4>SmartWatch SE</h4>
+                    <p style="color: #64748b; font-size: 0.9rem;">Heavy on features. Light on price.</p>
+                    <span class="related-price">$199.00</span>
+                </div>
+            </a>
+            <a href="#" class="related-card">
+                <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop"
+                    alt="ProBuds" class="related-img">
+                <div class="related-info">
+                    <h4>ProBuds Noise Cancelling</h4>
+                    <p style="color: #64748b; font-size: 0.9rem;">Immersive sound.</p>
+                    <span class="related-price">$149.00</span>
+                </div>
+            </a>
+            <a href="#" class="related-card">
+                <img src="https://images.unsplash.com/photo-1573883431205-98b5f10aaedb?w=300&h=300&fit=crop"
+                    alt="Magnetic Charger" class="related-img">
+                <div class="related-info">
+                    <h4>Magnetic Fast Charger</h4>
+                    <p style="color: #64748b; font-size: 0.9rem;">USB-C Cable (1m)</p>
+                    <span class="related-price">$29.00</span>
+                </div>
+            </a>
+            <a href="#" class="related-card">
+                <img src="https://images.unsplash.com/photo-1510017803434-a899398421b3?w=300&h=300&fit=crop"
+                    alt="Sport Band" class="related-img">
+                <div class="related-info">
+                    <h4>Sport Loop Band</h4>
+                    <p style="color: #64748b; font-size: 0.9rem;">Soft, breathable nylon weave.</p>
+                    <span class="related-price">$49.00</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle" style="font-size: 1.2rem;"></i>
+        <span>Added to cart successfully!</span>
+    </div>
+
+    <script>
+        // Image Gallery Logic
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const mainImage = document.getElementById('mainImage');
+
+        thumbnails.forEach(thumb => {
+            thumb.addEventListener('click', function () {
+                // Update Image
+                const newSrc = this.getAttribute('data-full');
+                mainImage.style.opacity = '0'; // smooth transition effect
+
+                setTimeout(() => {
+                    mainImage.src = newSrc;
+                    mainImage.style.opacity = '1';
+                }, 200);
+
+                // Update Active State
+                thumbnails.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Image Zoom Functionality
+        const zoomContainer = document.getElementById('zoomContainer');
+
+        zoomContainer.addEventListener('mousemove', function (e) {
+            const { left, top, width, height } = this.getBoundingClientRect();
+            const x = (e.clientX - left) / width;
+            const y = (e.clientY - top) / height;
+
+            mainImage.style.transformOrigin = `${x * 100}% ${y * 100}%`;
+            mainImage.style.transform = "scale(1.6)";
+        });
+
+        zoomContainer.addEventListener('mouseleave', function () {
+            mainImage.style.transform = "scale(1)";
+            mainImage.style.transformOrigin = "center center";
+        });
+
+        // Mobile Menu Toggle
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburgerBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            // Change icon
+            const icon = hamburgerBtn.querySelector('i');
+            if (mobileMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                hamburgerBtn.querySelector('i').classList.remove('fa-times');
+                hamburgerBtn.querySelector('i').classList.add('fa-bars');
+            });
+        });
+
+        // Quantity Selector
+        function changeQuantity(delta) {
+            const quantityInput = document.getElementById('quantity');
+            let newValue = parseInt(quantityInput.value) + delta;
+            if (newValue < 1) newValue = 1;
+            if (newValue > 10) newValue = 10; // Max limit
+            quantityInput.value = newValue;
+        }
+
+        // Add to Cart Animation
+        function addToCart() {
+            const toast = document.getElementById('toast');
+            const cartCount = document.querySelector('.cart-count');
+            const quantity = parseInt(document.getElementById('quantity').value);
+
+            // Animation for cart count
+            const currentCount = parseInt(cartCount.textContent);
+            cartCount.textContent = currentCount + quantity;
+            cartCount.style.transform = 'scale(1.5)';
+            setTimeout(() => cartCount.style.transform = 'scale(1)', 200);
+
+            // Show toast
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Tabs Logic
+        function showTab(tabId, event) {
+            // Remove active class from all tabs and panes
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+
+            // Add active class to clicked tab and target pane
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Color & Size Selection Visuals
+        document.querySelectorAll('.color-option').forEach(opt => {
+            opt.addEventListener('click', function () {
+                document.querySelectorAll('.color-option').forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('selectedColor').textContent = this.getAttribute('data-color');
+            });
+        });
+
+        document.querySelectorAll('.size-option').forEach(opt => {
+            opt.addEventListener('click', function () {
+                document.querySelectorAll('.size-option').forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('selectedSize').textContent = this.getAttribute('data-size');
+            });
+        });
+    </script>
+</body>
+
+</html>
